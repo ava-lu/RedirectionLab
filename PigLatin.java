@@ -7,28 +7,37 @@ public class PigLatin {
     System.out.println(pigLatinSimple("aaron"));
     */
 
-    //pigLatin
+    /*pigLatin
     System.out.println(pigLatin("the"));
     System.out.println(pigLatin("check"));
     System.out.println(pigLatin("skee"));
     System.out.println(pigLatin("emu"));
     System.out.println(pigLatin("grade"));
+    */
+
+    //pigLatinBest
+    System.out.println(pigLatinBest("*emu"));
+    System.out.println(pigLatinBest("4chan"));
+    System.out.println(pigLatinBest("fish!"));
+    System.out.println(pigLatinBest("fish"));
+    System.out.println(pigLatinBest("the."));
+    System.out.println(pigLatinBest("cat!"));
+    System.out.println(pigLatinBest("amazing?"));
+    System.out.println(pigLatinBest("apple%"));
     //
   }
   public static String pigLatinSimple(String s) {
     String word = s;
-    if (word.substring(0,1).equals("a") ||
-    word.substring(0,1).equals("e") ||
-    word.substring(0,1).equals("i") ||
-    word.substring(0,1).equals("o") ||
-    word.substring(0,1).equals("u")) {
+    if (word.charAt(0)=='a' || word.charAt(0)=='e' ||
+    word.charAt(0)=='i' || word.charAt(0)=='o' ||
+    word.charAt(0)=='u') {
       word = word + "hay";
     }
     else {
       word = word.substring(1, word.length()) + word.charAt(0)
       + "ay";
     }
-    return word;
+    return word.toLowerCase();
   }
   public static String pigLatin(String s) {
     String word = s;
@@ -51,8 +60,21 @@ public class PigLatin {
       word = word.substring(2,word.length()) + word.substring(0,2) + "ay";
     }
     else {
-      word = pigLatinSimple(word);
+      if (word.length()>=2) word = pigLatinSimple(word);
     }
-    return word;
+    return word.toLowerCase();
+  }
+  public static String pigLatinBest(String s) {
+    String word = s;
+    if (Character.isLetter(word.charAt(0))==false) return word.toLowerCase();
+    else if (Character.isLetter(word.charAt(word.length()-1))==false &&
+    Character.isDigit(word.charAt(word.length()-1))==false) {
+      String withoutpunct = word.substring(0,word.length()-1);
+      word = pigLatin(withoutpunct) + word.charAt(word.length()-1);
+      return word.toLowerCase();
+    }
+    else {
+      return pigLatin(word);
+    }
   }
 }
